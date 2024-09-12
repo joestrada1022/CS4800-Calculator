@@ -58,7 +58,9 @@ def clear_field():
 root = tk.Tk(screenName="Calculator")
 root.geometry("300x350")
 
-text_result = tk.Text(root, height=2, width=17, font=("Arial", 24), bg="#7E8082")
+text_result = tk.Text(
+    root, height=2, width=17, font=("Arial", 24), bg="#7E8082", state="disabled"
+)
 text_result.grid(columnspan=6)
 
 
@@ -77,7 +79,6 @@ btn_exp = tk.Button(
     command=lambda: add_to_calculation("^"),
     width=5,
     font=("Arial", 14),
-    state="disabled",
 )
 btn_exp.grid(row=1, column=3)
 
