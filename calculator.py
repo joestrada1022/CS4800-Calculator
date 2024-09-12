@@ -22,18 +22,19 @@ chat.send_message(
 )
 
 calculation = ""
-FG = "#FFFFFF"
-BG = "#090909"
 
 
 def add_to_calculation(symbol):
+    text_result.configure(state="normal")
     global calculation
     calculation += str(symbol)
     text_result.delete(1.0, "end")
     text_result.insert(1.0, calculation)
+    text_result.configure(state="disabled")
 
 
 def evaluate_calculation():
+    text_result.configure(state="normal")
     global calculation
     try:
         response = chat.send_message(calculation)
@@ -43,24 +44,22 @@ def evaluate_calculation():
     except:
         clear_field()
         text_result.insert(1.0, "Error")
+    text_result.configure(state="disabled")
 
 
 def clear_field():
+    text_result.configure(state="normal")
     global calculation
     calculation = ""
     text_result.delete(1.0, "end")
+    text_result.configure(state="disabled")
 
 
 root = tk.Tk(screenName="Calculator")
 root.geometry("300x350")
 
-text_result = tk.Text(
-    root,
-    height=2,
-    width=16,
-    font=("Arial", 24),
-)
-text_result.grid(columnspan=5)
+text_result = tk.Text(root, height=2, width=17, font=("Arial", 24), bg="#7E8082")
+text_result.grid(columnspan=6)
 
 
 btn_clear = tk.Button(
@@ -69,6 +68,7 @@ btn_clear = tk.Button(
     command=clear_field,
     width=11,
     font=("Arial", 14),
+    bg="#D23030",
 )
 btn_clear.grid(row=1, column=1, columnspan=2)
 btn_exp = tk.Button(
@@ -77,13 +77,14 @@ btn_exp = tk.Button(
     command=lambda: add_to_calculation("^"),
     width=5,
     font=("Arial", 14),
+    state="disabled",
 )
 btn_exp.grid(row=1, column=3)
 
 btn_sin = tk.Button(
     root,
     text="sin",
-    command=lambda: add_to_calculation("sin("),
+    command=lambda: add_to_calculation("sin"),
     width=5,
     font=("Arial", 14),
 )
@@ -92,7 +93,7 @@ btn_sin.grid(row=1, column=4)
 btn_cos = tk.Button(
     root,
     text="cos",
-    command=lambda: add_to_calculation("cos("),
+    command=lambda: add_to_calculation("cos"),
     width=5,
     font=("Arial", 14),
 )
@@ -101,7 +102,7 @@ btn_cos.grid(row=2, column=1)
 btn_tan = tk.Button(
     root,
     text="tan",
-    command=lambda: add_to_calculation("tan("),
+    command=lambda: add_to_calculation("tan"),
     width=5,
     font=("Arial", 14),
 )
@@ -110,7 +111,7 @@ btn_tan.grid(row=2, column=2)
 btn_log = tk.Button(
     root,
     text="log",
-    command=lambda: add_to_calculation("log("),
+    command=lambda: add_to_calculation("log"),
     width=5,
     font=("Arial", 14),
 )
@@ -293,6 +294,7 @@ btn_equals = tk.Button(
     command=evaluate_calculation,
     width=11,
     font=("Arial", 14),
+    bg="#43A047",
 )
 btn_equals.grid(row=7, column=3, columnspan=2)
 
